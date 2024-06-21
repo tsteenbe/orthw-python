@@ -1,0 +1,132 @@
+#
+# Directory containing the configuration directory.
+#
+configuration_home: "~/ort-project/ort-config"
+
+#
+# Directory containing a copy of the ort repository:
+# https://github.com/oss-review-toolkit/ort
+#
+ort_home: "~/ort-project/ort"
+
+#
+# Directory containing a copy of the scancode-toolkit repository:
+# https://github.com/nexB/scancode-toolkit
+#
+scancode_home: "~/ort-project/scancode-toolkit"
+
+#
+# Configuration entries database home (used by import- and export commands):
+#
+exports_home: "~/ort-project/exports"
+
+#
+# Directory containing a copy of the orthw repository:
+# https://github.com/oss-review-toolkit/orthw
+#
+orthw_home: "~/ort-project/orthw"
+
+#
+# Set of policy rules for which violations can be triggered even by excluded license findings:
+#
+ignore_excluded_rule_ids: ""
+
+#
+# ScanCode version to filter the scan results with the 'create-analyzer-result' command.
+# An empty string matches any ScanCode version.
+#
+scancode_version: "30.1.0"
+
+#
+# Comma-separated list of advisors to query for known security advisories or defects.
+# A list of valid values can be obtained from the ORT CLI via the command `ort advise --help`.
+#
+enabled_advisors: "osv"
+
+#
+# Comma-separated list of license categories within 'license-classifications.yml' for which no path excludes will be
+# created during package configuration generation (e.g. pc-create, pc-create-offending, pc-create-all commands). If
+# no non-offending license IDs and categories are defined, then path excludes will be generated for all file findings
+# within a package.
+#
+non_offending_license_categories: ""
+
+#
+# Comma-separated list of license IDs for which no path excludes will be created during package configuration generation
+# (e.g. pc-create, pc-create-offending, pc-create-all commands). If non non-offending license IDs and categories are
+# defined, then path excludes will be generated for all file findings within a package.
+#
+non_offending_license_ids: ""
+
+#
+# The template for the license classification request. Supported placeholders:
+# - <REPLACE_LICENSE_ID>
+# - <REPLACE_LICENSE_URL>
+#
+license_classification_request_template: "
+Dear legal team,
+
+Please help with the following questions regarding the license '<REPLACE_LICENSE_ID>', see [1]:
+
+1. In which category do we have to add that license?
+2. Should the license be added to the notice file?
+3. Should a source code offer be included in the notice file?
+
+[1] <REPLACE_LICENSE_URL>
+
+"
+
+#
+# Scan results cache Postgres database.
+#
+scandb_host: ""
+scandb_port: ""
+scandb_db: ""
+scandb_schema: ""
+scandb_user: ""
+scandb_password: ""
+
+#
+# ORT docker image.
+# The registry server, username and password should only be specified if authentication is required.
+# For GitLab it is recommended to use API tokens (as password), with "read registry" permission, instead of user
+# credentials.
+#
+ort_docker_registry_server: ""
+ort_docker_registry_username: ""
+ort_docker_registry_password: ""
+ort_docker_image: "ghcr.io/oss-review-toolkit/ort-extended:latest"
+
+#
+# netrc file credentials to inject when running ORT docker.
+#
+# Some package managers, e.g. Npm and Pip, use the netrc file for authenticating against artifact repositories.
+#
+netrc_machine: "artifactory.example.com"
+netrc_login: "example-user"
+netrc_password: "example-password"
+
+#
+# GitLab credentials for using the "init" command provided a URL pointing to a GitLab job artifact.
+# The password can either be a token or a password. The token can be created under
+# https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html and should have 'read_registry' and 'read_api'
+# permissions.
+#
+gitlab_host: "gitlab.example.com"
+gitlab_token: ""
+
+#
+# Options for ORT's CLI and helper CLI binaries, `ort` and `orth`.
+# Please refer to the help instructions of the respective CLI binary for the full list of available options.
+#
+# The log level can be configured e.g. via "--error", "--warn", "--info" and "--debug".
+# The output of stack traces can be enabled with "--stacktrace".
+#
+ort_options: "--info"
+orth_options: ""
+
+#
+# JVM options for ORT's CLI and helper CLI binaries, `ort` and `orth`.
+#
+ort_jvm_options: "-Xmx16G"
+orth_jvm_options: "-Xmx16G"
