@@ -20,7 +20,7 @@ from pathlib import Path
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import package_config_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -30,8 +30,8 @@ def export_curations(package_id: str, source_code_dir: str) -> None:
     require_initialized()
 
     package_configuration_file = "FIXME find_package(package_id)"
-    exports_license_finding_curations_file: Path = config.exports_license_finding_curations_file
-    exports_vcs_url_mapping_file: Path = config.exports_vcs_url_mapping_file
+    exports_license_finding_curations_file: Path = settings.exports_license_finding_curations_file
+    exports_vcs_url_mapping_file: Path = settings.exports_vcs_url_mapping_file
 
     args: list[str] = [
         "orth",
@@ -61,10 +61,10 @@ def export_curations(package_id: str, source_code_dir: str) -> None:
 
         orthw package-config export-curations {package_id} /home/ort-user/code-repo/
     """.format(
-        file=config.exports_license_finding_curations_file,
+        file=settings.exports_license_finding_curations_file,
         package_id="Maven:org.apache.curator:curator-framework:2.13.0",
     ),
-    short_help=f"Exports the license finding curations to '{config.exports_license_finding_curations_file}'.",
+    short_help=f"Exports the license finding curations to '{settings.exports_license_finding_curations_file}'.",
 )
 @click.argument("package_id")
 @click.argument("source_code_dir")

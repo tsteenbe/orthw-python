@@ -21,7 +21,7 @@ from pathlib import Path
 import click
 from docker.models.containers import Container
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 from orthw.utils.cmdgroups import command_group
 from orthw.utils.process import run
@@ -48,21 +48,21 @@ def evaluate(
         "ort",
         "evaluate",
         "--copyright-garbage-file",
-        config.ort_config_copyright_garbage_file.as_posix(),
+        settings.ort_config_copyright_garbage_file.as_posix(),
         "--package-curations-dir",
-        config.ort_config_package_curations_dir.as_posix(),
+        settings.ort_config_package_curations_dir.as_posix(),
         "--output-formats",
         format_,
         "--ort-file",
         ort_file.name,
         "--repository-configuration-file",
-        config.repository_configuration_file.as_posix(),
+        settings.repository_configuration_file.as_posix(),
         "--rules-file",
-        config.ort_config_rules_file.as_posix(),
+        settings.ort_config_rules_file.as_posix(),
         "--license-classifications-file",
-        config.ort_config_license_classifications_file.as_posix(),
+        settings.ort_config_license_classifications_file.as_posix(),
         "--package-configuration-dir",
-        config.ort_config_package_configuration_dir.as_posix(),
+        settings.ort_config_package_configuration_dir.as_posix(),
     ]
 
     # Execute external run

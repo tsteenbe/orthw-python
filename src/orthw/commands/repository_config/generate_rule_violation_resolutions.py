@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import repository_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -27,8 +27,8 @@ from orthw.utils.required import require_initialized
 def generate_rule_violation_resolutions() -> None:
     require_initialized()
 
-    evaluation_result_file: Path = config.evaluation_result_file
-    repository_configuration_file: Path = config.repository_configuration_file
+    evaluation_result_file: Path = settings.evaluation_result_file
+    repository_configuration_file: Path = settings.repository_configuration_file
 
     args: list[str] = [
         "orth",

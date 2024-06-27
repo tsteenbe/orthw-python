@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import repository_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -27,9 +27,9 @@ from orthw.utils.required import require_initialized
 def import_curations() -> None:
     require_initialized()
 
-    exports_license_finding_curations_file: Path = config.exports_license_finding_curations_file
-    scan_result_file: Path = config.scan_result_file
-    repository_configuration_file: Path = config.repository_configuration_file
+    exports_license_finding_curations_file: Path = settings.exports_license_finding_curations_file
+    scan_result_file: Path = settings.scan_result_file
+    repository_configuration_file: Path = settings.repository_configuration_file
 
     args: list[str] = [
         "orth",
@@ -50,11 +50,11 @@ def import_curations() -> None:
     context="REPOSITORY_CONFIG",
     name="import-curations",
     help=(
-        f"Imports license finding curations from '{config.exports_license_finding_curations_file}' "
+        f"Imports license finding curations from '{settings.exports_license_finding_curations_file}' "
         "merges them into the ort.yml file."
     ),
     short_help=(
-        f"Imports license finding curations from '{str(config.exports_license_finding_curations_file)}' "
+        f"Imports license finding curations from '{str(settings.exports_license_finding_curations_file)}' "
         "merges them into the ort.yml file."
     ),
 )

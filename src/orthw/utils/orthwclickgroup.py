@@ -27,7 +27,7 @@ from rich.console import Console
 from rich.padding import Padding
 from rich.table import Table
 
-from orthw import config
+from orthw import settings
 
 
 class OrtHwClickGroup(click.Group):
@@ -44,11 +44,11 @@ class OrtHwClickGroup(click.Group):
         console.print(
             "\n[bright_white]Usage:\n"
             "\nConfiguration:\n\n"
-            f"[bright_green]ORTHW config:[/bright_green] {config.configfile}\n"
-            f"[bright_green]ORT config home:[/bright_green] {config.configuration_home}\n"
-            f"[bright_green]ORT home:[/bright_green] {config.ort_home}\n"
-            f"[bright_green]Scancode home:[/bright_green] {config.scancode_home}\n"
-            f"[bright_green]Exports home:[/bright_green] {config.exports_home}\n"
+            f"[bright_green]ORTHW config:[/bright_green] {settings.ORTHW_CONFIG_FILE}\n"
+            f"[bright_green]ORT config home:[/bright_green] {settings.configuration_home}\n"
+            f"[bright_green]ORT home:[/bright_green] {settings.ort_home}\n"
+            f"[bright_green]Scancode home:[/bright_green] {settings.scancode_home}\n"
+            f"[bright_green]Exports home:[/bright_green] {settings.exports_home}\n"
             "[/bright_white]",
         )
 

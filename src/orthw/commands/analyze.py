@@ -21,7 +21,7 @@ from pathlib import Path
 import click
 from docker.models.containers import Container
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 from orthw.utils.cmdgroups import command_group
 from orthw.utils.process import run
@@ -56,9 +56,9 @@ def analyze(
     ]
 
     if not docker:
-        if config.ort_config_package_curations_dir.exists():
+        if settings.ort_config_package_curations_dir.exists():
             args.append("--package-curations-dir")
-            args.append(config.ort_config_package_curations_dir.as_posix())
+            args.append(settings.ort_config_package_curations_dir.as_posix())
         else:
             logging.warning("No curations folder available. Running without curations.")
 

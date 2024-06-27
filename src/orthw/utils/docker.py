@@ -23,7 +23,7 @@ import docker
 from docker.models.containers import Container
 from docker.types import Mount
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 from orthw.utils.required import required_command
 
@@ -49,7 +49,7 @@ def _run_in_docker(
     """
     mounts: list[Mount] = []
     client = docker.from_env()
-    docker_image: str = config.ort_docker_image
+    docker_image: str = settings.ort_docker_image
 
     # Check if docker is available on system
     if not required_command("docker"):

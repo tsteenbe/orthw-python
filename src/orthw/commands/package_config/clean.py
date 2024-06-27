@@ -20,7 +20,7 @@ from pathlib import Path
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import package_config_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -30,7 +30,7 @@ def clean(package_id: str) -> None:
     require_initialized()
 
     package_configuration_file = "FIXME find_package(package_id)"
-    scan_result_file: Path = config.scan_result_file
+    scan_result_file: Path = settings.scan_result_file
 
     args: list[str] = [
         "orth",

@@ -20,7 +20,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 
 required_commands = ["md5sum"]
@@ -56,7 +56,7 @@ def bootstrap_commands() -> bool:
 
 def require_initialized() -> None:
     """Check the base config directories required for operations"""
-    target_url_file: Path = config.target_url_file
+    target_url_file: Path = settings.target_url_file
 
     if target_url_file is None or not target_url_file.is_file():
         logging.error("The working directory is not initialized. Please run 'orthw init <target-url>' first.")

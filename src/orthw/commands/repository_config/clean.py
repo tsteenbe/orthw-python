@@ -20,7 +20,7 @@ from pathlib import Path
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 from orthw.utils.cmdgroups import repository_group
 from orthw.utils.process import run
@@ -33,9 +33,9 @@ def clean(source_code_dir: str) -> None:
     # FIXME implement args to call evaluate
     # evaluate()
 
-    evaluation_result_file: Path = config.evaluation_result_file
-    repository_configuration_file: Path = config.repository_configuration_file
-    ort_config_resolutions_file: Path = config.ort_config_resolutions_file
+    evaluation_result_file: Path = settings.evaluation_result_file
+    repository_configuration_file: Path = settings.repository_configuration_file
+    ort_config_resolutions_file: Path = settings.ort_config_resolutions_file
 
     logging.debug(f"source_code_dir: {source_code_dir}")
 

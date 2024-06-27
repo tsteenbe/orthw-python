@@ -18,20 +18,20 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import repository_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
 
-exports_path_excludes_file: Path = config.exports_path_excludes_file
+exports_path_excludes_file: Path = settings.exports_path_excludes_file
 
 
 def import_path_excludes() -> None:
     require_initialized()
 
-    scan_result_file: Path = config.scan_result_file
-    repository_configuration_file: Path = config.repository_configuration_file
-    exports_vcs_url_mapping_file: Path = config.exports_vcs_url_mapping_file
+    scan_result_file: Path = settings.scan_result_file
+    repository_configuration_file: Path = settings.repository_configuration_file
+    exports_vcs_url_mapping_file: Path = settings.exports_vcs_url_mapping_file
 
     args: list[str] = [
         "orth",
@@ -54,11 +54,11 @@ def import_path_excludes() -> None:
     context="REPOSITORY_CONFIG",
     name="import-path-excludes",
     help=(
-        f"Imports path excludes by repository from '{config.exports_license_finding_curations_file}' "
+        f"Imports path excludes by repository from '{settings.exports_license_finding_curations_file}' "
         " into the ort.yml file."
     ),
     short_help=(
-        f"Import path excludes by repository from '{config.exports_license_finding_curations_file}' "
+        f"Import path excludes by repository from '{settings.exports_license_finding_curations_file}' "
         "into the ort.yml file."
     ),
 )

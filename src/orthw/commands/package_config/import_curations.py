@@ -20,7 +20,7 @@ from pathlib import Path
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import package_config_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -30,8 +30,8 @@ def import_curations(package_id: str, source_code_dir: str) -> None:
     require_initialized()
 
     package_configuration_file = "FIXME find_package(package_id)"
-    exports_license_finding_curations_file: Path = config.exports_license_finding_curations_file
-    scan_result_file: Path = config.scan_result_file
+    exports_license_finding_curations_file: Path = settings.exports_license_finding_curations_file
+    scan_result_file: Path = settings.scan_result_file
 
     args: list[str] = [
         "orth",
@@ -60,11 +60,11 @@ def import_curations(package_id: str, source_code_dir: str) -> None:
 
         orthw package-config import-curations {package_id} /home/ort-user/code-repo/
     """.format(
-        file=config.exports_license_finding_curations_file,
+        file=settings.exports_license_finding_curations_file,
         package_id="Maven:org.apache.curator:curator-framework:2.13.0",
     ),
     short_help=(
-        f"Imports license finding curations from '{config.exports_license_finding_curations_file}' "
+        f"Imports license finding curations from '{settings.exports_license_finding_curations_file}' "
         "into package configuration file for given package id."
     ),
 )

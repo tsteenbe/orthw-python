@@ -20,7 +20,7 @@ from pathlib import Path
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import package_config_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -29,11 +29,11 @@ from orthw.utils.required import require_initialized
 def create(package_id: str) -> None:
     require_initialized()
 
-    scan_results_storage_dir: Path = config.scan_results_storage_dir
-    ort_config_license_classifications_file: Path = config.ort_config_license_classifications_file
-    non_offending_license_categories = config.non_offending_license_categories
-    non_offending_license_ids = config.non_offending_license_ids
-    ort_config_package_configurations_dir: Path = config.ort_config_package_configurations_dir
+    scan_results_storage_dir: Path = settings.scan_results_storage_dir
+    ort_config_license_classifications_file: Path = settings.ort_config_license_classifications_file
+    non_offending_license_categories = settings.non_offending_license_categories
+    non_offending_license_ids = settings.non_offending_license_ids
+    ort_config_package_configurations_dir: Path = settings.ort_config_package_configurations_dir
 
     args: list[str] = [
         "orth",
@@ -70,10 +70,10 @@ def create(package_id: str) -> None:
 
         orthw package-config create Maven:org.apache.curator:curator-framework:2.13.0
     """.format(
-        dir=config.ort_config_package_configurations_dir,
+        dir=settings.ort_config_package_configurations_dir,
     ),
     short_help=f"Creates one package configuration in '{dir}' for given package id.".format(
-        dir=config.ort_config_package_configurations_dir,
+        dir=settings.ort_config_package_configurations_dir,
     ),
 )
 @click.argument("package_id")

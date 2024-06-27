@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import repository_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -27,7 +27,7 @@ from orthw.utils.required import require_initialized
 def sort_() -> None:
     require_initialized()
 
-    repository_configuration_file: Path = config.repository_configuration_file
+    repository_configuration_file: Path = settings.repository_configuration_file
 
     args: list[str] = [
         "orth",
