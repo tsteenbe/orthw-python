@@ -26,7 +26,7 @@ from orthw.utils.process import run
 from orthw.utils.required import require_initialized
 
 
-def find(package_id: str) -> int:
+def find(package_id: str) -> None:
     require_initialized()
 
     ort_config_package_configurations_dir: Path = config.ort_config_package_configurations_dir
