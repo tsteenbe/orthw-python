@@ -70,7 +70,9 @@ def scan(
 
 @command_group.command(
     name="scan",
-    help=("Runs ORT Scanner on given source code directory to via external scanners " "detect licenses and copyrights."),
+    help=(
+        "Runs ORT Scanner on given source code directory to via external scanners " "detect licenses and copyrights."
+    ),
     short_help=(
         "Runs ORT Scanner on given source code directory to via external scanners " "detect licenses and copyrights."
     ),
