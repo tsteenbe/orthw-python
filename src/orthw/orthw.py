@@ -20,6 +20,7 @@ import importlib
 import pkgutil
 import sys
 from pathlib import Path
+from typing import Any
 
 import click
 
@@ -42,7 +43,7 @@ class OrtHw:
 
         for module in pkgutil.iter_modules():
             if module.name.startswith("orthw") and hasattr(module.module_finder, "path"):
-                path = Path(module.module_finder.path) / module.name / "commands"
+                path = Path(module.module_finder.path) / module.name / "commands"  # pyright: ignore
                 self.module_import(path)
 
     def module_import(self, path: Path) -> None:
@@ -76,7 +77,7 @@ class OrtHw:
             return 1
 
     @property
-    def commands(self) -> list[click.MultiCommand] | None:
+    def commands(self) -> Any:
         """Return the dynamic commands from plugins"""
         return command_group().commands()
 

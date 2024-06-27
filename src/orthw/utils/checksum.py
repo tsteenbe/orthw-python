@@ -31,9 +31,9 @@ class FolderType(Enum):
 
 def check_evaluation_md5_sum() -> bool:
     """Checks whether the evaluator inputs changed."""
-    evaluation_md5_sum_file: Path = config.path("evaluation_md5_sum_file")
-    package_configuration_md5_sum_file: Path = config.path("package_configuration_md5_sum_file")
-    package_curations_md5_sum_file: Path = config.path("package_curations_md5_sum_file")
+    evaluation_md5_sum_file: Path = config.evaluation_md5_sum_file
+    package_configuration_md5_sum_file: Path = config.package_configuration_md5_sum_file
+    package_curations_md5_sum_file: Path = config.package_curations_md5_sum_file
 
     if evaluation_md5_sum_file.exists():
         md5_res = get_folder_md5(FolderType.CONFIGURATION)
@@ -79,9 +79,9 @@ def get_folder_md5(folder_type: str | FolderType) -> str | None:
 
     if isinstance(folder_type, FolderType):
         if folder_type == FolderType.CONFIGURATION:
-            folder = config.path("ort_config_package_configuration_dir")
+            folder = config.ort_config_package_configurations_dir
         elif folder_type == FolderType.CURATIONS:
-            folder = config.path("ort_config_package_curations_dir")
+            folder = config.ort_config_package_curations_dir
     elif isinstance(folder_type, str):
         folder = Path(folder_type)
 
@@ -89,14 +89,13 @@ def get_folder_md5(folder_type: str | FolderType) -> str | None:
         logging.error("No valid entry for folder_type.")
         return None
 
-    if folder:
-        sorted_file_list: list[Path] = sorted(folder.glob("**/*.yml"))
+    sorted_file_list: list[Path] = sorted(folder.glob("**/*.yml"))
 
-        hashed_file_list = hashlib.md5()  # noqa: S324
-        for file in sorted_file_list:
-            with Path.open(file, mode="rb") as f:
-                digest = hashlib.file_digest(f, "md5")
-                logging.debug(f"{digest.hexdigest()}  {file.as_posix()}".encode())
-                hashed_file_list.update(f"{digest.hexdigest()}  {file.as_posix()}".encode())
+    hashed_file_list = hashlib.md5()  # noqa: S324
+    for file in sorted_file_list:
+        with file.open(mode="rb") as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hashed_file_list.update(chunk)
+            logging.debug(f"{hashed_file_list.hexdigest()}  {file.as_posix()}")
 
     return hashed_file_list.hexdigest()

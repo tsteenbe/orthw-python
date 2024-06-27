@@ -15,40 +15,57 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileCopyrightText: 2023 Helio Chissini de Castro
 
-name: Build and Deploy
+name: Build and Publish
 
 on:
+  workflow_run:
+    workflows:
+      - Validation
+    types:
+      - completed
   workflow_dispatch:
   push:
     tags:
-      - 'v*.*'
+      - 'v*'
     paths-ignore:
       - '**.md'
   pull_request:
-    branches: [ main ]
     paths-ignore:
       - '**.md'
 
 jobs:
-    build:
-        name: Build OrtHW python with Poetry
+    build_deploy:
+        name: Build and Deploy Python OrtHW
         runs-on: ubuntu-latest
 
         steps:
-          - uses: actions/checkout@v3
-          - uses: actions/setup-python@v4
+          - uses: actions/checkout@v4
+
+          - name: Install poetry
+            run: pipx install poetry
+          - uses: actions/setup-python@v5
             with:
               python-version: '3.10'
-              cache: 'pip'
-          - run: |
-              pip install poetry
+              cache: 'poetry'
+
+          - name: Setup poetry project
+            run: |
               poetry install -q
               poetry build
-    deploy:
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      name: Deploy
-      runs-on: ubuntu-latest
 
-      steps:
-        - run: |
-            echo "Deployment is not implemented yet"
+          - name: Check 📦 package
+            run: |
+              poetry run twine check dist/*
+
+          - name: Upload artifacts
+            uses: actions/upload-artifact@v4
+            with:
+              name: build-artifacts
+              path: dist/*
+
+          - name: Publish 📦 package
+            if: github.event_name == 'push'
+            env:
+              TWINE_USERNAME: ${{ secrets.TEST_PYPI_USER }}
+              TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+            run: poetry run twine upload -r testpypi dist/*

@@ -34,7 +34,7 @@ def run(
     workdir: Path | None = None,
     output_dir: Path | None = None,
     is_docker: bool = False,
-) -> int | Container:
+) -> int:
     """Run a process with defined arguments in the proper setting for bare metal or docker
 
     Args:
@@ -68,12 +68,15 @@ def run(
                 sys.exit(1)
 
     if is_docker:
-        return _run_in_docker(
+        container: Container = _run_in_docker(
             args,
             console_output=console_output,
             workdir=workdir,
             output_dir=output_dir,
         )
+        result = container.wait()  # Wait for the container to finish
+        exit_code: int = result.get("StatusCode", 1)  # Get the exit code, default to 1 on error
+        return exit_code
     else:
         return __run_host(
             args,
@@ -100,7 +103,7 @@ def __run_host(
         workdir (Path | None, optional): Work directory.
         output_dir (Path | None, optional): Output dir is necessary to pass along.
     Returns:
-        int: _description_
+        int: Run status code
     """
     if admin():
         logging.error("This script is not allowed to run as admin.")

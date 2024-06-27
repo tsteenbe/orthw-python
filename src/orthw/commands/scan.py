@@ -19,7 +19,6 @@ from __future__ import annotations
 from pathlib import Path
 
 import click
-from docker.models.containers import Container
 
 from orthw.utils import logging
 from orthw.utils.cmdgroups import command_group
@@ -31,7 +30,7 @@ def scan(
     output_dir: str | None = None,
     format_: str = "JSON",
     docker: bool = False,
-) -> int | Container:
+) -> int:
     """Runs ORT Scanner on given source code directory to detect licenses and copyrights
 
     Args:
@@ -70,7 +69,9 @@ def scan(
 
 @command_group.command(
     name="scan",
-    help=("Runs ORT Scanner on given source code directory to via external scanners " "detect licenses and copyrights."),
+    help=(
+        "Runs ORT Scanner on given source code directory to via external scanners " "detect licenses and copyrights."
+    ),
     short_help=(
         "Runs ORT Scanner on given source code directory to via external scanners " "detect licenses and copyrights."
     ),
