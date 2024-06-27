@@ -16,8 +16,8 @@
 # License-Filename: LICENSE
 from __future__ import annotations
 
-from orthw.utils.config import Config
+from orthw.utils.settings import Settings
 
 """Make config object global
 """
-config: Config = Config()
+settings: Settings = Settings()

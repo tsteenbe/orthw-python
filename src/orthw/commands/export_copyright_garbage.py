@@ -21,7 +21,7 @@ from pathlib import Path
 
 from rich.pretty import pprint
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 from orthw.utils.cmdgroups import command_group
 from orthw.utils.process import run
@@ -32,9 +32,9 @@ def export_copyright_garbage() -> None:
     """Command export-copyright-garbage"""
     require_initialized()
 
-    copyrights_file: Path = config.copyrights_file
-    ort_config_copyright_garbage_file: Path = config.ort_config_copyright_garbage_file
-    scan_result_file: Path = config.scan_result_file
+    copyrights_file: Path = settings.copyrights_file
+    ort_config_copyright_garbage_file: Path = settings.ort_config_copyright_garbage_file
+    scan_result_file: Path = settings.scan_result_file
     if (
         copyrights_file.is_file() is None
         or not ort_config_copyright_garbage_file.is_file()
@@ -71,7 +71,7 @@ def export_copyright_garbage() -> None:
         "--input-copyright-garbage-file",
         mapped_copyrights_file.as_posix(),
         "--output-copyright-garbage-file",
-        config.ort_config_copyright_garbage_file.as_posix(),
+        settings.ort_config_copyright_garbage_file.as_posix(),
     ]
     run(args=args)
 

@@ -27,7 +27,7 @@ import requests
 import yaml
 from docker.models.containers import Container
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 from orthw.utils.cmdgroups import command_group
 from orthw.utils.process import run
@@ -41,7 +41,7 @@ def init(target_url: str) -> int | Container:
     logging.debug(f"filename: {filename}")
     logging.debug(f"extension: {extension}")
 
-    evaluation_md5_sum_file: Path = config.evaluation_md5_sum_file
+    evaluation_md5_sum_file: Path = settings.evaluation_md5_sum_file
     if evaluation_md5_sum_file.exists():
         evaluation_md5_sum_file.unlink()
 
@@ -82,7 +82,7 @@ def init(target_url: str) -> int | Container:
             "orth",
             "extract-repository-configuration",
             "--repository-configuration-file",
-            config.repository_configuration_file.as_posix(),
+            settings.repository_configuration_file.as_posix(),
             "--ort-file",
             scan_result_file.as_posix(),
         ]
@@ -97,7 +97,7 @@ def init(target_url: str) -> int | Container:
             "--ort-file",
             scan_result_file.as_posix(),
             "--scan-results-storage-dir",
-            config.scan_results_storage_dir.as_posix(),
+            settings.scan_results_storage_dir.as_posix(),
         ]
 
         return run(args)

@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import command_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -42,9 +42,9 @@ def licenses(package_id: str, source_code_dir: str | None = None) -> None:
         "--omit-excluded",
     ]
 
-    args += ["--ort-file", config.evaluation_result_file.as_posix()]
-    args += ["--repository-configuration-file", config.repository_configuration_file.as_posix()]
-    args += ["--package-configuration-dir", config.ort_config_package_configuration_dir.as_posix()]
+    args += ["--ort-file", settings.evaluation_result_file.as_posix()]
+    args += ["--repository-configuration-file", settings.repository_configuration_file.as_posix()]
+    args += ["--package-configuration-dir", settings.ort_config_package_configuration_dir.as_posix()]
 
     if source_code_dir:
         args += ["--source-code-dir", source_code_dir]

@@ -20,7 +20,7 @@ from pathlib import Path
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import package_config_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -29,7 +29,7 @@ from orthw.utils.required import require_initialized
 def find(package_id: str) -> None:
     require_initialized()
 
-    ort_config_package_configurations_dir: Path = config.ort_config_package_configurations_dir
+    ort_config_package_configurations_dir: Path = settings.ort_config_package_configurations_dir
 
     args: list[str] = [
         "orth",
@@ -48,14 +48,14 @@ def find(package_id: str) -> None:
     context="PACKAGE_CONFIG",
     name="find",
     help=f"""
-        Searches '{config.ort_config_package_configurations_dir}' for a package configurations with given package id.
+        Searches '{settings.ort_config_package_configurations_dir}' for a package configurations with given package id.
 
         Examples:
 
         orthw package-config find Maven:org.apache.curator:curator-framework:2.13.0
     """,
     short_help=(
-        f"Searches '{config.ort_config_package_configurations_dir}' "
+        f"Searches '{settings.ort_config_package_configurations_dir}' "
         "for a package configuration with given package id."
     ),
 )

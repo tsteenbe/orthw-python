@@ -20,7 +20,7 @@ import hashlib
 from enum import Enum
 from pathlib import Path
 
-from orthw import config
+from orthw import settings
 from orthw.utils import logging
 
 
@@ -31,9 +31,9 @@ class FolderType(Enum):
 
 def check_evaluation_md5_sum() -> bool:
     """Checks whether the evaluator inputs changed."""
-    evaluation_md5_sum_file: Path = config.evaluation_md5_sum_file
-    package_configuration_md5_sum_file: Path = config.package_configuration_md5_sum_file
-    package_curations_md5_sum_file: Path = config.package_curations_md5_sum_file
+    evaluation_md5_sum_file: Path = settings.evaluation_md5_sum_file
+    package_configuration_md5_sum_file: Path = settings.package_configuration_md5_sum_file
+    package_curations_md5_sum_file: Path = settings.package_curations_md5_sum_file
 
     if evaluation_md5_sum_file.exists():
         md5_res = get_folder_md5(FolderType.CONFIGURATION)
@@ -79,9 +79,9 @@ def get_folder_md5(folder_type: str | FolderType) -> str | None:
 
     if isinstance(folder_type, FolderType):
         if folder_type == FolderType.CONFIGURATION:
-            folder = config.ort_config_package_configurations_dir
+            folder = settings.ort_config_package_configurations_dir
         elif folder_type == FolderType.CURATIONS:
-            folder = config.ort_config_package_curations_dir
+            folder = settings.ort_config_package_curations_dir
     elif isinstance(folder_type, str):
         folder = Path(folder_type)
 

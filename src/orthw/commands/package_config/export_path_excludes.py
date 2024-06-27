@@ -20,7 +20,7 @@ from pathlib import Path
 
 import click
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import package_config_group
 from orthw.utils.process import run
 from orthw.utils.required import require_initialized
@@ -30,8 +30,8 @@ def export_path_excludes(package_id: str, source_code_dir: str) -> None:
     require_initialized()
 
     package_configuration_file = "FIXME find_package(package_id)"
-    exports_path_excludes_file: Path = config.exports_path_excludes_file
-    exports_vcs_url_mapping_file: Path = config.exports_vcs_url_mapping_file
+    exports_path_excludes_file: Path = settings.exports_path_excludes_file
+    exports_vcs_url_mapping_file: Path = settings.exports_vcs_url_mapping_file
 
     args: list[str] = [
         "orth",
@@ -61,10 +61,10 @@ def export_path_excludes(package_id: str, source_code_dir: str) -> None:
 
         orthw package-config export-path-excludes {package_id} /home/ort-user/code-repo/
     """.format(
-        file=config.exports_path_excludes_file,
+        file=settings.exports_path_excludes_file,
         package_id="Maven:org.apache.curator:curator-framework:2.13.0",
     ),
-    short_help=f"Exports path excludes for given package id to '{config.exports_path_excludes_file}'.",
+    short_help=f"Exports path excludes for given package id to '{settings.exports_path_excludes_file}'.",
 )
 @click.argument("package_id")
 @click.argument("source_code_dir")

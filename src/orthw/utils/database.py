@@ -23,17 +23,17 @@ from psycopg2.sql import Literal
 from pydantic import BaseModel
 from rich.pretty import pprint
 
-from orthw import config
+from orthw import settings
 from orthw.utils import admin, logging
 
 
 class PostgresConfig(BaseModel):
-    pg_db: str | None = config.scandb_db
-    pg_host: str | None = config.scandb_host
-    pg_port: str | None = config.scandb_port
-    pg_schema: str | None = config.scandb_schema
-    pg_user: str | None = config.scandb_user
-    pg_password: str | None = config.scandb_password
+    pg_db: str | None = settings.scandb_db
+    pg_host: str | None = settings.scandb_host
+    pg_port: str | None = settings.scandb_port
+    pg_schema: str | None = settings.scandb_schema
+    pg_user: str | None = settings.scandb_user
+    pg_password: str | None = settings.scandb_password
 
     def __init__(self) -> None:
         for key, value in self.__dict__.items():

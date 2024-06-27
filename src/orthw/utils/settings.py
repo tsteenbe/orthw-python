@@ -22,17 +22,25 @@ from appdirs import AppDirs
 from yaml_settings_pydantic import BaseYamlSettings, YamlSettingsConfigDict
 
 
-class Config(BaseYamlSettings):
+class Settings(BaseYamlSettings):
     """Base config object. Reads default orthw config file or set default"""
 
-    configdir: Path = Path(AppDirs("orthw").user_config_dir)
-    configfile: Path = Path(AppDirs("orthw").user_config_dir) / "config.yml"
+    ORTHW_CONFIG_DIR: Path = Path(AppDirs("orthw").user_config_dir)
+    ORTHW_CONFIG_FILE: Path = Path(AppDirs("orthw").user_config_dir) / "settings.yml"
 
-    model_config = YamlSettingsConfigDict(yaml_files=configfile.as_posix(), extra="allow")
+    try:
+        model_config = YamlSettingsConfigDict(
+            yaml_files=ORTHW_CONFIG_FILE.as_posix(),
+            case_sensitive=True,
+            env_file=(".env", ".env.prod"),
+            extra="allow",
+        )
+    except ValueError as e:
+        print(e)
 
-    configuration_home: Path = configdir / "ort-config"
+    configuration_home: Path = ORTHW_CONFIG_DIR / "ort-config"
     enabled_advisors: str | None = "osv"
-    exports_home: Path = configdir / "exports"
+    exports_home: Path = ORTHW_CONFIG_DIR / "exports"
     gitlab_host: str | None = "gitlab.example.com"
     gitlab_token: str | None = None
     ignore_excluded_rule_ids: str | None = None
@@ -45,12 +53,12 @@ class Config(BaseYamlSettings):
     ort_docker_registry_password: str | None = None
     ort_docker_registry_server: str | None = None
     ort_docker_registry_username: str | None = None
-    ort_home: Path = configdir / "ort"
+    ort_home: Path = ORTHW_CONFIG_DIR / "ort"
     ort_jvm_options: str | None = "-Xmx16G"
     ort_options: str | None = "--info"
     orth_jvm_options: str | None = "-Xmx16G"
     orth_options: str | None = None
-    scancode_home: Path = configdir / "scancode-toolkit"
+    scancode_home: Path = ORTHW_CONFIG_DIR / "scancode-toolkit"
     scancode_version: str = "32.1.0"
     scandb_db: str | None = None
     scandb_host: str | None = None
@@ -60,14 +68,14 @@ class Config(BaseYamlSettings):
     scandb_user: str | None = None
 
     # Config directory files
-    evaluation_md5_sum_file: Path = configdir / "evaluation-md5sum.txt"
-    evaluation_result_file: Path = configdir / "evaluation-result.json"
-    package_configuration_md5_sum_file: Path = configdir / "package-configuration-md5sum.txt"
-    package_curations_md5_sum_file: Path = configdir / "package-curations-md5sum.txt"
-    scan_result_file: Path = configdir / "scan-result.json"
-    scan_results_storage_dir: Path = configdir / "scan-results"
-    target_url_file: Path = configdir / "target-url.txt"
-    temp_dir: Path = configdir / "tmp"
+    evaluation_md5_sum_file: Path = ORTHW_CONFIG_DIR / "evaluation-md5sum.txt"
+    evaluation_result_file: Path = ORTHW_CONFIG_DIR / "evaluation-result.json"
+    package_configuration_md5_sum_file: Path = ORTHW_CONFIG_DIR / "package-configuration-md5sum.txt"
+    package_curations_md5_sum_file: Path = ORTHW_CONFIG_DIR / "package-curations-md5sum.txt"
+    scan_result_file: Path = ORTHW_CONFIG_DIR / "scan-result.json"
+    scan_results_storage_dir: Path = ORTHW_CONFIG_DIR / "scan-results"
+    target_url_file: Path = ORTHW_CONFIG_DIR / "target-url.txt"
+    temp_dir: Path = ORTHW_CONFIG_DIR / "tmp"
 
     # Configuration (repository) files
     ort_config_copyright_garbage_file: Path = configuration_home / "copyright-garbage.yml"

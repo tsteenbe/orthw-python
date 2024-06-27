@@ -16,7 +16,7 @@
 # License-Filename: LICENSE
 from __future__ import annotations
 
-from orthw import config
+from orthw import settings
 from orthw.utils.cmdgroups import command_group
 from orthw.utils.process import run
 
@@ -28,7 +28,7 @@ def handled_licenses() -> None:
         "orth",
         "list-license-categories",
         "--license-classifications-file",
-        config.ort_config_license_classifications_file.as_posix(),
+        settings.ort_config_license_classifications_file.as_posix(),
     ]
 
     run(args)
