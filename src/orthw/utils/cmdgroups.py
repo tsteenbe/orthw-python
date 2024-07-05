@@ -34,9 +34,10 @@ from orthw.utils.orthwclickgroup import OrtHwClickGroup
 def command_group(ctx: click.Context, debug: bool, docker: bool, logfile: str) -> None:
     if debug:
         logging.setLevel(stdlogger.DEBUG)
-        ctx.obj["debug"] = True
+        if ctx:
+            ctx.obj["debug"] = True
     # Set the operations to run with configured container
-    if docker:
+    if docker and ctx:
         ctx.obj["docker"] = True
     if logfile:
         filehandler = stdlogger.FileHandler(
