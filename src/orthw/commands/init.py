@@ -111,7 +111,7 @@ def init(target_url: str) -> int | Container:
 
         Examples:
 
-        orthw init https://raw.githubusercontent.com/oss-review-toolkit/orthw/main/examples/npm-mime-types-2.1.26-scan-result.json
+        orthw init https://raw.githubusercontent.com/tsteenbe/orthw-python/main/examples/npm-mime-types-2.1.26-scan-result.json
 
         orthw init file:///home/ort-user/ort-project/orthw/examples/npm-mime-types-2.1.26-scan-result.json
     """,
