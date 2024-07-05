@@ -88,6 +88,6 @@ def analyze(
 @click.option("--output-dir", type=click.Path(exists=False), required=False)
 @click.option("--work-dir", type=click.Path(), required=True)
 @click.pass_context
-def __analyze(ctx: click.Context, workdir: str, format_: str, output_dir: str) -> None:
+def __analyze(ctx: click.Context, work_dir: str, format_: str, output_dir: str) -> None:
     """Runs ORT Analyzer on given source code directory to find used dependencies."""
-    analyze(workdir=workdir, format_=format_, output_dir=output_dir, docker=bool("docker" in ctx.obj))
+    analyze(workdir=work_dir, format_=format_, output_dir=output_dir, docker=bool("docker" in ctx.obj))
